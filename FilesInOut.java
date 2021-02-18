@@ -1,9 +1,10 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import java.lang.Number;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 /**
  * 
@@ -12,23 +13,61 @@ import java.lang.Number;
  */
 public class FilesInOut {
 
-    public static void main(String[] args) {
-        // Replace this with statements to set the file name (input) and file name (output).
-        // Initially it will be easier to hardcode suitable file names.
+    public static List<String> names = new ArrayList<String>();
+    public static PrintWriter printWriter;
 
-        // Set up a new Scanner to read the input file.
-        // Processing line by line would be sensible here.
-        // Initially, echo the text to System.out to check you are reading correctly.
-        // Then add code to modify the text to the output format.
+    /**
+     * Load files and read lines from input.
+     * @param input
+     * @param output
+     * @return boolean if fails
+     */
+    public static boolean loadFiles(String input, String output) {
+        // Read the content from file
+        try (Scanner scannerInput = new Scanner(new File(input))){
+            readLines(scannerInput);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Fails
+        } 
 
-        // Set up a new PrintWriter to write the output file.
-        // Add suitable code into the above processing (because you need to do this line by line also.
-        // That is, read a line, write a line, loop.
+        // Create output file if not exists
+        try {
+            File outputFile = new File(output);
+            printWriter = new PrintWriter (outputFile);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return false; // Fails
+        }
+        
+        return true;
+        
+    }
 
-        // Finally, add code to read the filenames as arguments from the command line.
+    /**
+     * Read every line from file
+     * @param scannerInput
+     */
+    public static void readLines(Scanner scannerInput) {
+        while (scannerInput.hasNextLine()) {
+            names.add(scannerInput.nextLine());
+        }
+    }
 
-        System.out.println("You need to add your own code to do anything");
+    /**
+     * All the names list
+     * @return 
+     */
+    public static List<String> getNames() {
+        return names;
+    }
 
-    } // main
+    /**
+     * The printWriter instsance
+     */
+    public static void write(String s) {
+        printWriter.write(s);
+    }
 
-} // FilesInOut
+}
