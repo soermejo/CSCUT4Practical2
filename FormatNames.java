@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,8 +53,6 @@ public class FormatNames {
         String names;
 
         for (String line: FilesInOut.getNames()) {
-            System.out.println(line);
-
             // Upper case
             names = upper(line);
             
@@ -63,11 +62,15 @@ public class FormatNames {
             String month = date.substring(2, 4);
             String year = date.substring(4, 8);
 
-            formatted = names + day + "/" + month + "/" + year;
+            formatted = names + day + "/" + month + "/" + year + "\n";
 
-            System.out.println(formatted.toString());
+            FilesInOut.write(formatted);
 
         }
+
+        FilesInOut.close();
+
+        System.out.println("Done.");
     }
 
     /**
@@ -81,11 +84,15 @@ public class FormatNames {
         String capPart;
 
         for (int i=0; i<partsLine.length-1;i++) {
-            if (allUpperCase) {
+
+            if (allUpperCase) { // Check if all upper case enabled
                 capPart = partsLine[i].toUpperCase();
             } else {
                 capPart = partsLine[i].substring(0,1).toUpperCase() + partsLine[i].substring(1).toLowerCase();
             }
+
+            if (partsLine[i].length() == 1) // Add . if length 1
+                capPart += ".";
             capLine.append(capPart + " ");
         }
 

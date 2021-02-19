@@ -24,10 +24,11 @@ public class FilesInOut {
      */
     public static boolean loadFiles(String input, String output) {
         // Read the content from file
+    
         try (Scanner scannerInput = new Scanner(new File(input))){
             readLines(scannerInput);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false; // Fails
         } 
 
@@ -36,8 +37,7 @@ public class FilesInOut {
             File outputFile = new File(output);
             printWriter = new PrintWriter (outputFile);
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false; // Fails
         }
         
@@ -68,6 +68,13 @@ public class FilesInOut {
      */
     public static void write(String s) {
         printWriter.write(s);
+    }
+
+    /**
+     * Close printWriter instance
+     */
+    public static void close() {
+        printWriter.close();
     }
 
 }
