@@ -98,7 +98,7 @@ public class FilesInOut {
             content = new String(Files.readAllBytes(path), charset);
             
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return false; // Fails
         }
         return true;

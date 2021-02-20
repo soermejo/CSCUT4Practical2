@@ -114,9 +114,7 @@ public class FormatNames {
             upperLine = upper(line);
 
             String surname = upperLine.get(upperLine.size() - 1);
-            System.out.println(surname);
             String firstName = String.join(" ", upperLine.subList(0, upperLine.size() - 1));
-            System.out.println(firstName);
 
             // Date
             String date = line.split(" ")[line.split(" ").length-1];
