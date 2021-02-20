@@ -1,6 +1,11 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +18,13 @@ import java.util.Scanner;
  */
 public class FilesInOut {
 
-    public static List<String> names = new ArrayList<String>();
-    public static PrintWriter printWriter;
+    private static List<String> names = new ArrayList<>();
+    private static PrintWriter printWriter;
+    private static String content;
+
+
+    private static final String TEMPLATE_PATH = "html/";
+    private static final Charset charset = StandardCharsets.UTF_8;
 
     /**
      * Load files and read lines from input.
@@ -76,5 +86,37 @@ public class FilesInOut {
     public static void close() {
         printWriter.close();
     }
+    
+    
+    /**
+     * Load html template
+     * @return
+     */
+    public static boolean loadHTMLTemplate() {
+        try {
+            Path path = Paths.get(TEMPLATE_PATH + "template.html");
+            content = new String(Files.readAllBytes(path), charset);
+            
+        } catch (IOException e) {
+            System.out.println(e);
+            return false; // Fails
+        }
+        return true;
+
+    }
+    
+    /**
+     * Replace html and save in content
+     * @param styleLink
+     * @param tableHTML
+     */
+    public static void replaceHTML(String styleName, String tableHTML) {
+        
+        content = content.replace("{#STYLE_CSS#}", TEMPLATE_PATH + styleName);
+        content = content.replace("{#TABLE_HTML#}", tableHTML);
+        write(content);
+        close();
+    }
+    
 
 }
