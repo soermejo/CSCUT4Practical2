@@ -1,5 +1,9 @@
-# CSCUT4Practical2
-The starter code for practical exercise 2
+# FormatNames
 
-This project is not specific to any IDE nor dependency management.  
-It is just the bare .java file and some test csv files. You are free to use any IDE of your choice.
+The program will accept either args or will ask for input (if not provided)
+
+Accepted inputs:
+
+`FormatNames -h -u` will first load flag options and then ask for input as it is not provided.
+
+`FormatNames input.txt out.html -h` or `FormatNames -h input.txt out.html` both works.
